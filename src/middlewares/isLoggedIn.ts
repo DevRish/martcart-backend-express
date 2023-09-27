@@ -47,7 +47,7 @@ export const isLoggedIn = async (req: Request, res: Response, next: NextFunction
         }
 
         // check if session is valid and still exists
-        const payload = JSON.parse(Buffer.from(encodedPayload).toString("utf8"));
+        const payload = JSON.parse(Buffer.from(encodedPayload, "base64").toString("utf8"));
         const session = await Session.findById(payload.id);
         if(!session) {
             console.log(chalk.redBright("[-] Session invalid or expired"));
@@ -69,7 +69,8 @@ export const isLoggedIn = async (req: Request, res: Response, next: NextFunction
 
         next();
     } catch (error) {
-        console.log(chalk.redBright("[-] Error occured in isLoggedIn middleware: \n" + error));
+        console.log(chalk.redBright("[-] Error occured in isLoggedIn middleware:"));
+        console.log(error);
         res.status(403).json({ message: "Unauthorized Access" });
         return;
     }

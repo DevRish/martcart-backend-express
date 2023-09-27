@@ -4,6 +4,6 @@ import { isLoggedIn } from "../middlewares/isLoggedIn";
 
 const router = Router();
 
-router.post("/getUser", isLoggedIn, getUserData );
+router.get("/getUser", isLoggedIn, getUserData );
 
 export const userRoutes = router;

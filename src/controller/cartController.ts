@@ -22,7 +22,7 @@ export const getCartData = async (req: Request,res: Response) => {
                     from: "products",
                     localField: "cart.productId",
                     foreignField: "_id",
-                    as: "$product"
+                    as: "product"
                 }
             },
             {
@@ -37,7 +37,11 @@ export const getCartData = async (req: Request,res: Response) => {
                 }
             }
         ]);
-        res.status(200).json({ cart: populatedCart[0].cart });
+        if(populatedCart.length === 0) {
+            res.status(200).json({ cart: [] });
+        } else {
+            res.status(200).json({ cart: populatedCart[0].cart });
+        }
     } catch (err) {
         console.log(chalk.redBright(`[-] Error while getting cart data : ${err}`));
         res.status(500).json({ message: "Server Error" });
@@ -46,18 +50,18 @@ export const getCartData = async (req: Request,res: Response) => {
 
 export const addToCart = async (req: Request, res: Response) => {
     try {
-        const newProductId = new Types.ObjectId(String(req.body.prodid));
+        const newProductId = String(req.body.prodid);
         const currUser: IUser = res.locals.user;
-        const checkIncludes = currUser.cart.find((item: ICartItem) => (item.productId === newProductId));
+        const checkIncludes = currUser.cart.find((item: ICartItem) => (String(item.productId) === newProductId));
         if(checkIncludes) { // Item present in cart already. Quantity needs to be modified
             currUser.cart = currUser.cart.map((item: ICartItem) => {
                 const q = item.quantity;
-                if(item.productId === newProductId) return { ...item, quantity: (q+1) };
+                if(String(item.productId) === newProductId) return { ...item, quantity: (q+1) };
                 else return item;
             });
         } else { // item not present in cart, need to push
             currUser.cart.push({
-                productId: newProductId,
+                productId: new Types.ObjectId(newProductId),
                 quantity: 1,
             });
         }
@@ -74,18 +78,19 @@ export const addToCart = async (req: Request, res: Response) => {
 
 export const removeFromCart = async (req: Request, res: Response) => {
     try {
-        const productId = new Types.ObjectId(String(req.body.prodid));
+        const productId = String(req.body.prodid);
         const currUser: IUser = res.locals.user;
-        const checkIncludes = currUser.cart.find((item: ICartItem) => (item.productId === productId));
+        const checkIncludes = currUser.cart.find((item: ICartItem) => (String(item.productId) === productId));
         if(checkIncludes) { // Item present in cart already. Quantity needs to be modified
             currUser.cart = currUser.cart.map((item: ICartItem) => {
                 const q = item.quantity;
-                if(item.productId === productId) {
+                if(String(item.productId) === productId) {
                     if((q-1) === 0) return; // exclude the item, quantity became 0
                     else return { ...item, quantity: (q-1) };
                 }
                 else return item;
             });
+            currUser.cart = currUser.cart.filter((item) => (!!item)); // eliminate null values
 
             await User.findByIdAndUpdate(currUser._id, currUser);
 

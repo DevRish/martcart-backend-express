@@ -9,22 +9,20 @@ const orderSchema = new mongoose.Schema({
         type: Types.ObjectId,
         ref: "User",
     },
-    date: String,
-    time: String,
     quantity: Number,
-    totalPrice: Number,
     address: String,
+    totalPrice: Number,
+    orderedAt: Date,
 });
 
 export interface IOrder {
     _id?: Types.ObjectId,
     productId: Types.ObjectId,
     userId: Types.ObjectId,
-    date: string,
-    time: string,
     quantity: number,
-    totalPrice: number,
     address: string,
+    totalPrice: number,
+    orderedAt: string,
 }
 
 export const Order = mongoose.model("Order", orderSchema);

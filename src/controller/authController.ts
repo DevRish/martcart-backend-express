@@ -126,7 +126,7 @@ export const logoutController = async (req: Request, res: Response) => {
     try {
         const jwtToken = req.headers.authorization.split(" ")[1];
         const encodedPayload = jwtToken.split(".")[1]; // [header, payload, signature]
-        const payload = JSON.parse(Buffer.from(encodedPayload).toString("utf8"));
+        const payload = JSON.parse(Buffer.from(encodedPayload, "base64").toString("utf8"));
         await Session.deleteOne({ _id: payload.id });
         // if any error occurs it will go to catch, else:
         res.status(200).json({ message: "Successfully logged out" });
