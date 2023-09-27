@@ -1,33 +1,41 @@
-import chalk from 'chalk';
-import { User } from '../models/User';
+import chalk from "chalk";
+import { Request, Response } from "express";
+import { IUser } from "../models/User";
+import { IOrder, Order } from "../models/Order";
 
-export const getOrderData = (req,res) => {
-    User.find({ username: req.body.currUser }).then((users) => {
-        res.status(200).json({ orders: users[0].orders});
-    }).catch(err => {
-        res.status(404).json({ error: err });
-        console.log(chalk.redBright(`[-] Error while getting orders : ${err}`))
-    })
-}
+export const getOrderData = async (req: Request, res: Response) => {
+    try {
+        const currUser: IUser = res.locals.user;
+        const orders: IOrder[] = await Order.find({ userId: currUser._id }); 
 
-export const addOrder = (req,res) => {
+        return res.status(200).json({ orders: orders});
 
-    const newOrder = {
-        prodid: req.body.prodid,
-        date: req.body.date,
-        time: req.body.time,
-        quantity: req.body.quantity,
-        totalPrice: req.body.totalPrice, 
-        address: req.body.address
+    } catch (err) {
+        console.log(chalk.redBright(`[-] Error while fetching orders : ${err}`));
+        res.status(500).json({ message: "Server Error" });
     }
+};
 
-    User.updateOne({ username: req.body.currUser }, { $push: { orders: newOrder } })
-    .then(() => {
-        res.status(200).json({ message: 'Order added successfully' })
-        console.log(chalk.greenBright(`[+] Order added`))
-    })
-    .catch(err => {
-        res.status(404).json({ error: err })
-        console.log(chalk.redBright(`[-] Error while adding order : ${err}`))
-    })
-}
+export const addOrder = async (req: Request, res: Response) => {
+    try {
+        const { prodid, date, time, quantity, totalPrice, address } = req.body;
+        const currUser: IUser = res.locals.user;
+        const newOrder: IOrder = { 
+            productId: prodid, 
+            userId: currUser._id,
+            date, 
+            time, 
+            quantity, 
+            totalPrice, 
+            address
+        };
+        const newOrderDoc = await Order.create(newOrder);
+
+        console.log(chalk.greenBright("[+] Order added"));
+        return res.status(200).json({ message: "Order added successfully", data: newOrderDoc });
+
+    } catch (err) {
+        console.log(chalk.redBright(`[-] Error while adding order : ${err}`));
+        res.status(500).json({ message: "Server Error" });
+    }
+};

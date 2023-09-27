@@ -33,7 +33,6 @@ export const signupController = async (req: Request, res: Response, next: NextFu
             email,
             password: encryptedPassword,
             cart: [],
-            orders: [],
             joinDate: now,
         };
 
@@ -100,6 +99,11 @@ export const loginController = async (req: Request, res: Response) => {
         res.status(200).json({
             message: "Successfully logged in",
             token: jwtToken, // frontend must put this token in every upcoming requests, that part is to be handled in frontend
+            user: {
+                firstname: existingUser.firstname,
+                lastname: existingUser.lastname,
+                cart: existingUser.cart,
+            }
         });
 
         // TODO: (DONEE)

@@ -1,0 +1,28 @@
+services:
+  server:
+    container_name: martcart-server
+    build:
+      context: .
+      dockerfile: dockerfile
+    volumes:
+      - ./src:/app/src
+    env_file:
+      - ./.env
+    environment:
+      - DATABASE_URL=mongodb://mongodb:27017/martcart
+    depends_on:
+      - mongodb
+    ports:
+      - 5000:5000
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    environment:
+      - MONGO_INITDB_DATABASE=martcart
+    ports:
+      - 27018:27017

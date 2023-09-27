@@ -1,0 +1,1 @@
+docker compose up --build -d && docker logs --follow martcart-server

@@ -1,105 +1,116 @@
 import chalk from "chalk";
-import { User } from "../models/User";
+import { ICartItem, IUser, User } from "../models/User";
 import { Request, Response } from "express";
+import { Types } from "mongoose";
 
-export const getCartData = (req: Request,res: Response) => {
+export const getCartData = async (req: Request,res: Response) => {
     // isLoggedIn runs before this, so we have res.locals.user
+    // but cart items haven't been populated, need to populate them
     try {
-        const currUser = res.locals.user;
-        res.status(200).json({ cart: currUser.cart});
+        const currUser: IUser = res.locals.user;
+        const populatedCart = await User.aggregate([
+            {
+                $match: {
+                    _id: currUser._id
+                }
+            },
+            {
+                $unwind: "$cart"
+            },
+            {
+                $lookup: {
+                    from: "products",
+                    localField: "cart.productId",
+                    foreignField: "_id",
+                    as: "$product"
+                }
+            },
+            {
+                $set: {
+                    "cart.productId": "$product" 
+                }
+            },
+            {
+                $group: {
+                    _id: "$_id",
+                    cart: { $push: "$cart" }
+                }
+            }
+        ]);
+        res.status(200).json({ cart: populatedCart[0].cart });
     } catch (err) {
         console.log(chalk.redBright(`[-] Error while getting cart data : ${err}`));
         res.status(500).json({ message: "Server Error" });
     }
 };
 
-export const addToCart = (req,res) => {
-    User.find({ username: req.body.currUser }).then((users) => {
-        let user = users[0];
-        const checkIncludes = user.cart.find((item) => (item.prodid === req.body.prodid));
-        if(checkIncludes) // Item present in cart already. Quantity needs to be modified
-        {
-            user.cart = user.cart.map((item) => {
-                let q = item.quantity;
-                if(item.prodid === req.body.prodid) return { ...item, quantity: (q+1) }
+export const addToCart = async (req: Request, res: Response) => {
+    try {
+        const newProductId = new Types.ObjectId(String(req.body.prodid));
+        const currUser: IUser = res.locals.user;
+        const checkIncludes = currUser.cart.find((item: ICartItem) => (item.productId === newProductId));
+        if(checkIncludes) { // Item present in cart already. Quantity needs to be modified
+            currUser.cart = currUser.cart.map((item: ICartItem) => {
+                const q = item.quantity;
+                if(item.productId === newProductId) return { ...item, quantity: (q+1) };
                 else return item;
-            })
-            User.updateOne({ username: req.body.currUser }, user)
-            .then(() => {
-                res.status(200).json({ message: `Item ${req.body.prodid} added to cart` })
-                console.log(chalk.greenBright("[+] Item added to cart"))
-            })
-            .catch(err => {
-                res.status(404).json({ error: err })
-                console.log(chalk.redBright(`[-] Error while adding item to cart : ${err}`))
-            })
+            });
+        } else { // item not present in cart, need to push
+            currUser.cart.push({
+                productId: newProductId,
+                quantity: 1,
+            });
         }
-        else // Item doesn't exist in cart. Needs to be pushed
-        {
-            User.updateOne({ username: req.body.currUser }, {}, { 
-                $push: { 
-                    cart: { 
-                        prodid: req.body.prodid, quantity: 1 
-                    } 
-                } 
-            })
-            .then(() => {
-                res.status(200).json({ message: `Item ${req.body.prodid} added to cart` })
-                console.log(chalk.greenBright("[+] Item added to cart"))
-            })
-            .catch(err => {
-                res.status(404).json({ error: err })
-                console.log(chalk.redBright(`[-] Error while adding item to cart : ${err}`))
-            })
-        }
-    })
-}
+        await User.findByIdAndUpdate(currUser._id, currUser);
 
-export const removeFromCart = (req,res) => {
-    // console.log(req.body.prodid)
-    User.find({ username: req.body.currUser }).then((users) => {
-        let user = users[0];
-        const checkIncludes = user.cart.find((item) => (item.prodid === req.body.prodid));
-        if(checkIncludes)
-        {
-            user.cart = user.cart.map((item) => {
-                let q = item.quantity;
-                if(item.prodid === req.body.prodid) return { ...item, quantity: (q-1) };
+        console.log(chalk.greenBright("[+] Item added to cart"));
+        return res.status(200).json({ message: `Item ${newProductId} added to cart` });
+
+    } catch (err) {
+        console.log(chalk.redBright(`[-] Error while adding item to cart : ${err}`));
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+
+export const removeFromCart = async (req: Request, res: Response) => {
+    try {
+        const productId = new Types.ObjectId(String(req.body.prodid));
+        const currUser: IUser = res.locals.user;
+        const checkIncludes = currUser.cart.find((item: ICartItem) => (item.productId === productId));
+        if(checkIncludes) { // Item present in cart already. Quantity needs to be modified
+            currUser.cart = currUser.cart.map((item: ICartItem) => {
+                const q = item.quantity;
+                if(item.productId === productId) {
+                    if((q-1) === 0) return; // exclude the item, quantity became 0
+                    else return { ...item, quantity: (q-1) };
+                }
                 else return item;
-            })
-            console.log("Cart after map function : "+user.cart);
-            user.cart = user.cart.filter((item) => (item.quantity > 0))
-            console.log("Cart after filter function : "+user.cart);
-            User.updateOne({ username: req.body.currUser }, user)
-            .then(() => {
-                res.status(200).json({ message: `Item ${req.body.prodid} removed from cart` })
-                console.log(chalk.greenBright(`[+] Item ${req.body.prodid} removed from cart`))
-            } )
-            .catch(err => {
-                res.status(404).json({ error: err })
-                console.log(chalk.redBright(`[-] Error while removing item from cart : ${err}`))
-            })
-        }
-        else
-        {
-            res.status(200).json({ message: "Item was not present in cart" })
-            console.log(chalk.greenBright("[+] Item was not present in cart"))
-        }
-    })
-}
+            });
 
-export const emptyCart = (req,res) => {
-    User.find({ username: req.body.currUser }).then((users) => {
-        let user = users[0];
-        user.cart = [];
-        User.updateOne({ username: req.body.currUser }, user)
-        .then(() => {
-            res.status(200).json({ message: "Cart emptied" })
-            console.log(chalk.greenBright("Cart Emptied"))
-        })
-        .catch(err => {
-            res.status(404).json({ error: err })
-            console.log(chalk.redBright(`[-] Error while removing item from cart : ${err}`))
-        })
-    })
-}
+            await User.findByIdAndUpdate(currUser._id, currUser);
+
+            console.log(chalk.greenBright("[+] Item removed from cart"));
+            return res.status(200).json({ message: `Item ${productId} removed from cart` });
+
+        } else { // item not present in cart, no need to remove anything
+            console.log(chalk.greenBright("[+] Item was not present in cart"));
+            return res.status(200).json({ message: "Item was not present in cart" });
+        }
+    } catch (err) {
+        console.log(chalk.redBright(`[-] Error while removing item from cart : ${err}`));
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+
+export const emptyCart = async (req: Request, res: Response) => {
+    try {
+        const currUser: IUser = res.locals.user;
+        currUser.cart = [];
+        await User.findByIdAndUpdate(currUser._id, currUser);
+        console.log(chalk.greenBright("[+] Cart Emptied"));
+        return res.status(200).json({ message: "Cart Emptied" });
+    } catch (err) {
+        console.log(chalk.redBright(`[-] Error while emptying cart : ${err}`));
+        return res.status(500).json({ message: "Server Error" });
+    }
+};

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 const userSchema = new mongoose.Schema({
     firstname: String,
@@ -7,20 +7,30 @@ const userSchema = new mongoose.Schema({
     phone: String,
     email: String,
     password: String,
-    cart: { type: Array },
-    orders: { type: Array },
-    joinDate: { type: Date }
+    cart: [{
+        productId: {
+            type: Types.ObjectId,
+            ref: "Product",
+        },
+        quantity: Number
+    }],
+    joinDate: { type: Date, default: (new Date()).toISOString() }
 });
 
+export interface ICartItem {
+    productId: Types.ObjectId,
+    quantity: number
+};
+
 export interface IUser {
+    _id?: Types.ObjectId,
     firstname: string,
     lastname: string,
     username: string,
     phone: string,
     email: string,
     password: string,
-    cart: [],
-    orders: [],
+    cart: ICartItem[],
     joinDate?: Date,
 }
 
