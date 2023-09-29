@@ -8,7 +8,7 @@ export const getUserData = (req: Request, res: Response) => {
         const currUser = res.locals.user;
         currUser._id = ""; // remove(overwrite with empty) document id
         currUser.password = ""; // remove(overwrite with emoty) password (will surely not be required anywhere in frontend)
-        res.status(200).json(currUser);
+        res.status(200).json({ message: "Fetched user details successfully", user: currUser});
     } catch (err) {
         console.log(chalk.redBright("[-] Error occured while returning user: \n" + err));
         res.status(500).json({ message: "Server Error" });
