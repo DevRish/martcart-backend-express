@@ -4,6 +4,19 @@ db.createCollection("users", { capped: false });
 db.createCollection("products", { capped: false });
 db.createCollection("orders", { capped: false });
 
+db.users.insert({
+  _id: ObjectId("65155b1dc2731ad574a21dec"),
+  firstname: "John",
+  lastname: "Doe",
+  username: "test_user",
+  phone: "9988776655",
+  email: "johndoe@test.com",
+  password: "7f6f467575be3c486742105261a957e8c3984f7cfe08d04d6c22ff5ca2499f807b25ca8d7423a4be26cca5d1a03261de0ae973ff736eaa687b150805b377f527", // "qwerty"
+  cart: [],
+  joinDate: ISODate("2023-09-28T10:53:17.505+00:00"),
+  __v: 0
+});
+
 db.products.insertMany([{
   _id: ObjectId("623c3ca2c8e443b2ca021970"),
   prod_name: "Nike Fraizer",

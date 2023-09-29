@@ -8,7 +8,7 @@ const router = Router();
 router.get("/getorderdata", isLoggedIn, getOrderData );
 
 router.post("/addOrder", 
-    body("prodid").notEmpty().isMongoId(),
+    body("productId").notEmpty().isMongoId(),
     body("quantity").notEmpty().isNumeric(),
     body("address").notEmpty().isString().trim(),
     isLoggedIn, 
