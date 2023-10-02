@@ -7,22 +7,22 @@ import { authRoutes } from "./api/authApi";
 import { cartRoutes } from "./api/cartApi";
 import { orderRoutes } from "./api/orderApi";
 import { productRoutes } from "./api/productApi";
-// import { manageCORS } from "./middlewares/cors";
+import { manageCORS } from "./middlewares/cors";
 
 const app = express();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const connection = connectDB();
 
-// cors middleware
-// app.use(manageCORS); // Work in Progress
-
 // pre-processing of request
 app.use(express.json()); // http request received, which is always in string format, parse into json object always before further execution
 app.use(express.urlencoded({extended:false}));
 
+// cors middleware verify origin of request and add appropriate headers to response
+app.use(manageCORS);
+
 // routing
-app.use("/static", express.static("public"));
+app.use("/static", express.static("src/public")); // express.static expects path wrt package.json, not wrt src folder !!
 app.use("/api/product", productRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
