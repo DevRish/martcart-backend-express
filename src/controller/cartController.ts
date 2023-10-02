@@ -38,10 +38,14 @@ export const getCartData = async (req: Request, res: Response) => {
                 }
             }
         ]);
+        const cart = populatedCart[0].cart;
+        for(const item of cart) {
+            item.productId = item.productId[0];
+        }
         if(populatedCart.length === 0) {
             res.status(200).json({ message: "Successfully fetched cart", cart: [] });
         } else {
-            res.status(200).json({ message: "Successfully fetched cart", cart: populatedCart[0].cart });
+            res.status(200).json({ message: "Successfully fetched cart", cart: cart });
         }
     } catch (err) {
         console.log(chalk.redBright(`[-] Error while getting cart data : ${err}`));

@@ -7,7 +7,7 @@ import { IProduct, Product } from "../models/Product";
 export const getOrderData = async (req: Request, res: Response) => {
     try {
         const currUser: IUser = res.locals.user;
-        const orders: IOrder[] = await Order.find({ userId: currUser._id }); 
+        const orders: IOrder[] = await Order.find({ userId: currUser._id }).populate("productId"); 
 
         return res.status(200).json({ message: "Orders fetched successfully", orders: orders });
 
