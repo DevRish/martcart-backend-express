@@ -33,9 +33,10 @@ export const addOrder = async (req: Request, res: Response) => {
             orderedAt: (new Date()).toISOString()
         };
         const newOrderDoc = await Order.create(newOrder);
+        const populatedDoc = await newOrderDoc.populate("productId");
 
         console.log(chalk.greenBright("[+] Order added"));
-        return res.status(200).json({ message: "Order added successfully", order: newOrderDoc });
+        return res.status(200).json({ message: "Order added successfully", order: populatedDoc });
 
     } catch (err) {
         console.log(chalk.redBright(`[-] Error while adding order : ${err}`));
