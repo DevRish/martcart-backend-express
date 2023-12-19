@@ -4,7 +4,18 @@ import { Request, Response } from "express";
 
 export const getProductData = async (req: Request, res: Response) => {
     try {
-        const products = await Product.find();
+        const { id, name, priceRange, ratingRange, categoryId, page, limit } = req.body;
+        // priceRange and ratingRange expected to be objects of form: { min: ..., max: ... }
+        // page and limit are numbers
+        // id, name, categoryId are strings
+        const products = await Product.find({
+            [id && "_id"]: id,
+            [name && "name"]: name,
+            [priceRange && "currentPrice"]: { $gte: priceRange.min, $lte: priceRange.max },
+            [ratingRange && "rating"]: { $gte: ratingRange.min, $lte: ratingRange.max },
+            [categoryId && "category"]: categoryId,
+        }).skip((page - 1)*limit)
+          .limit(limit);
         res.status(200).json({ message: "Products fetched successfully", products });
     } catch (err) {
         console.log(chalk.redBright(`[-] Error while getting products : ${err}`));
