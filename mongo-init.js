@@ -38,7 +38,7 @@ db.events.insertMany([
   {
     _id: ObjectId("65867ddcb7550eb3bb7a668d"),
     ctaLink: "/search",
-    imagePath: "/images/fallback.png",
+    imagePath: "/images/65867ddcb7550eb3bb7a668d.png",
     tagLines: [
       "Very good product"
     ]
