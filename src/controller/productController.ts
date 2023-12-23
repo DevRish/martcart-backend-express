@@ -22,10 +22,11 @@ export const createProduct = async (req: Request, res: Response) => {
         let savedProduct = await Product.create(newProduct);
         try {
             const filename = savedProduct._id + path.extname(req.file.path);
-            const filePath = path.join(IMAGE_DIR, filename);
             if(NODE_ENV === "AWS") {
-                storeFileS3(filePath, req.file.path);
+                const key = path.join("images", filename);
+                storeFileS3(key, req.file.path, req.file.mimetype);
             } else {
+                const filePath = path.join(IMAGE_DIR, filename);
                 storeFile(filePath, req.file.path);
             }
             await deleteFile(req.file.path);

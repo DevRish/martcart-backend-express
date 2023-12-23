@@ -11,8 +11,7 @@ const upload = multer({
             callback(null, TEMP_DIR);
         },
         filename(req, file, callback) {
-            const contentType = file.mimetype.split("/");
-            callback(null, Date.now().toString() + "." + contentType[contentType.length - 1]);
+            callback(null, Date.now().toString() + "-" + file.originalname);
         },
     }) 
 });

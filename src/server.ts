@@ -1,6 +1,6 @@
 import express from "express";
 import chalk from "chalk";
-import { PORT } from "./config/keys";
+import { NODE_ENV, PORT } from "./config/keys";
 import { connectDB } from "./config/databaseConn";
 import { userRoutes } from "./api/userApi";
 import { authRoutes } from "./api/authApi";
@@ -24,7 +24,9 @@ app.use(express.urlencoded({extended:true}));
 app.use(manageCORS);
 
 // routing
-app.use("/static", express.static("src/public")); // express.static expects path wrt package.json, not wrt src folder !!
+if(NODE_ENV !== "AWS") {
+    app.use("/static", express.static("src/public")); // express.static expects path wrt package.json, not wrt src folder !!
+}
 app.use("/api/product", productRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
