@@ -1,9 +1,16 @@
 import mongoose, { Types } from "mongoose";
 
+export enum UserTypes {
+    BUYER="BUYER",
+    SELLER="SELLER",
+    ADMIN="ADMIN"
+}
+
 const userSchema = new mongoose.Schema({
     firstname: String,
     lastname: String,
     username: String,
+    userType: String,
     phone: String,
     email: String,
     password: String,
@@ -27,6 +34,7 @@ export interface IUser {
     firstname: string,
     lastname: string,
     username: string,
+    userType: UserTypes,
     phone: string,
     email: string,
     password: string,

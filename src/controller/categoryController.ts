@@ -2,6 +2,20 @@ import chalk from "chalk";
 import { Request, Response } from "express";
 import { Category } from "../models/Category";
 
+export const createCategory = async (req: Request, res: Response) => {
+    try {
+        const { name } = req.body;
+        const newCategory = await Category.create({ name });
+        res.status(200).json({
+            message: "Successfully created new category with id: " + newCategory._id,
+            category: newCategory
+        });
+    } catch (err) {
+        console.log(chalk.redBright(`[-] Error while creating product : ${err}`));
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+
 export const getCategories = async (req: Request, res: Response) => {
     try {
         const categories = await Category.find();

@@ -9,6 +9,7 @@ import { orderRoutes } from "./api/orderApi";
 import { productRoutes } from "./api/productApi";
 import { manageCORS } from "./middlewares/cors";
 import { categoryRoutes } from "./api/categoryApi";
+import { eventRoutes } from "./api/eventApi";
 
 const app = express();
 
@@ -17,7 +18,7 @@ const connection = connectDB();
 
 // pre-processing of request
 app.use(express.json()); // http request received, which is always in string format, parse into json object always before further execution
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended:true}));
 
 // cors middleware verify origin of request and add appropriate headers to response
 app.use(manageCORS);
@@ -30,6 +31,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/category", categoryRoutes);
+app.use("/api/event", eventRoutes);
 app.get("/", (req, res) => {
     res.send("<h1>Server is running :)</h1><h3>Client and server were separated. <br> Please visit client at https://martcartdevrish.netlify.app/</h3>");
 });

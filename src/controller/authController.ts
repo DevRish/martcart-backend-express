@@ -6,7 +6,7 @@ import { JWT_SECRET } from "../config/keys";
 import { NextFunction, Request, Response } from "express";
 
 export const signupController = async (req: Request, res: Response, next: NextFunction) => {
-    const { firstname, lastname, username, phone, email, password } = req.body;
+    const { firstname, lastname, username, phone, email, password, userType } = req.body;
     try 
     {
         // Check existing
@@ -29,6 +29,7 @@ export const signupController = async (req: Request, res: Response, next: NextFu
             firstname, 
             lastname, 
             username,
+            userType,
             phone,
             email,
             password: encryptedPassword,

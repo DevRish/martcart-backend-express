@@ -29,7 +29,7 @@ export const addOrder = async (req: Request, res: Response) => {
             userId: res.locals.user._id,
             quantity, 
             address,
-            totalPrice: (product.price * quantity), 
+            totalPrice: (product.currentPrice * quantity), 
             orderedAt: (new Date()).toISOString()
         };
         const newOrderDoc = await Order.create(newOrder);
