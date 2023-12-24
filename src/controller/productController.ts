@@ -49,15 +49,21 @@ export const getProductData = async (req: Request, res: Response) => {
         // priceRange and ratingRange expected to be objects of form: { min: ..., max: ... }
         // page and limit are numbers
         // id, name, categoryId are strings
-        const products = await Product.find({
+
+        const query = {
             [id && "_id"]: id,
-            [name && "name"]: name,
+            [name && "name"]: { $regex: name, $options: "i" }, // /i for case insensitive 
             [minPrice && maxPrice && "currentPrice"]: { $gte: minPrice, $lte: maxPrice },
             [minRating && maxRating && "rating"]: { $gte: minRating, $lte: maxRating },
             [categoryId && "category"]: categoryId,
-        }).skip((Number(page) - 1)*Number(limit))
+        };
+
+        const products = await Product.find(query).skip((Number(page) - 1)*Number(limit))
           .limit(Number(limit));
-        res.status(200).json({ message: "Products fetched successfully", products });
+
+        const total = await Product.count(query);
+
+        res.status(200).json({ message: "Products fetched successfully", products, total });
     } catch (err) {
         console.log(chalk.redBright(`[-] Error while getting products : ${err}`));
         res.status(500).json({ message: "Server Error" });

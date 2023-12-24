@@ -34,7 +34,7 @@ export interface IUser {
     firstname: string,
     lastname: string,
     username: string,
-    userType: UserTypes,
+    userType: string,
     phone: string,
     email: string,
     password: string,
