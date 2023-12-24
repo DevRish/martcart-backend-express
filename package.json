@@ -6,6 +6,7 @@
     "start": "node server.js",
     "dev": "ts-node-dev src/server.ts",
     "build": "tsc",
+    "prod": "tsc && node dist/server.js",
     "lint": "eslint src/**"
   },
   "keywords": [],
