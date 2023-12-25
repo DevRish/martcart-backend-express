@@ -1,13 +1,14 @@
 import express from "express";
 import chalk from "chalk";
-import { NODE_ENV, PORT } from "./config/keys";
+import { CLIENT_URL, NODE_ENV, PORT } from "./config/keys";
 import { connectDB } from "./config/databaseConn";
 import { userRoutes } from "./api/userApi";
 import { authRoutes } from "./api/authApi";
 import { cartRoutes } from "./api/cartApi";
 import { orderRoutes } from "./api/orderApi";
 import { productRoutes } from "./api/productApi";
-import { manageCORS } from "./middlewares/cors";
+// import { manageCORS } from "./middlewares/cors";
+import cors from "cors";
 import { categoryRoutes } from "./api/categoryApi";
 import { eventRoutes } from "./api/eventApi";
 
@@ -21,7 +22,10 @@ app.use(express.json()); // http request received, which is always in string for
 app.use(express.urlencoded({extended:true}));
 
 // cors middleware verify origin of request and add appropriate headers to response
-app.use(manageCORS);
+// app.use(manageCORS); // not working :(
+app.use(cors({
+    origin: CLIENT_URL
+}));
 
 // routing
 if(NODE_ENV !== "AWS") {
