@@ -8,14 +8,21 @@ const eventSchema = new mongoose.Schema({
     name: String,
     imagePath: String,
     tagLines: [String],
-    ctaLink: String // redirection link on call to action button
+    ctaLink: String, // redirection link on call to action button
+    // design related
+    colorLight: String,
+    colorDark: String,
+    colorCTA: String,
 });
 
 export interface IEvent {
     _id?: Types.ObjectId,
     imagePath: string,
     tagLines: string[],
-    ctaLink: string
+    ctaLink: string,
+    colorLight: string,
+    colorDark: string,
+    colorCTA: string,
 };
 
 export const Event = mongoose.model("Event", eventSchema);

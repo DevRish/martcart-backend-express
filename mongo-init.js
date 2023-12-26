@@ -41,7 +41,10 @@ db.events.insertMany([
     imagePath: "/images/65870fe1f6eaba3d89f6e4f4.png",
     tagLines: [
       "Nike Sports shoes at 30% off! Grab your pair now!"
-    ]
+    ],
+    colorLight: "#9C4EBE",
+    colorDark: "#230033",
+    colorCTA: "#E27856"
   },
   {
     _id: ObjectId("65870feeb940d2bc876a322e"),
@@ -49,7 +52,10 @@ db.events.insertMany([
     imagePath: "/images/65870feeb940d2bc876a322e.png",
     tagLines: [
       "T Shirts and polos starting at Rs 599 only!"
-    ]
+    ],
+    colorLight: "#FF7191",
+    colorDark: "#C60E38",
+    colorCTA: "#005165"
   },
   {
     _id: ObjectId("6587100499788d3729aeb091"),
@@ -57,7 +63,10 @@ db.events.insertMany([
     imagePath: "/images/6587100499788d3729aeb091.png",
     tagLines: [
       "Upto 60% off on sweatshirts and jackets"
-    ]
+    ],
+    colorLight: "#71ECFF",
+    colorDark: "#0091A7",
+    colorCTA: "#A72F68"
   },
   {
     _id: ObjectId("6587100ff3875517fc9bd2cb"),
@@ -65,7 +74,10 @@ db.events.insertMany([
     imagePath: "/images/6587100ff3875517fc9bd2cb.png",
     tagLines: [
       "Upto 25% off on Televisions!"
-    ]
+    ],
+    colorLight: "#53F0E3",
+    colorDark: "#009286",
+    colorCTA: "#344B48"
   },
   {
     _id: ObjectId("6587101b183e99e97e795f98"),
@@ -73,7 +85,10 @@ db.events.insertMany([
     imagePath: "/images/6587101b183e99e97e795f98.png",
     tagLines: [
       "Latest RealMe models starting at Rs 12999!"
-    ]
+    ],
+    colorLight: "#FFA3A1",
+    colorDark: "#B00400",
+    colorCTA: "#230033"
   }
 ]);
 
