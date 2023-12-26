@@ -26,3 +26,7 @@ export const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY || "";
 export const AWS_S3_BUCKET_NAME = process.env.AWS_S3_BUCKET_NAME || "";
 export const AWS_S3_BUCKET_REGION = process.env.AWS_S3_BUCKET_REGION || "";
 export const AWS_S3_BUCKET_URL = process.env.AWS_S3_BUCKET_URL || "";
+
+// Razorpay settings
+export const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || "";
+export const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || "";

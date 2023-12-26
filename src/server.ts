@@ -11,6 +11,7 @@ import { productRoutes } from "./api/productApi";
 import cors from "cors";
 import { categoryRoutes } from "./api/categoryApi";
 import { eventRoutes } from "./api/eventApi";
+import { paymentRoutes } from "./api/paymentApi";
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/event", eventRoutes);
+app.use("/api/payment", paymentRoutes);
 app.get("/", (req, res) => {
     res.send("<h1>Server is running :)</h1><h3>Client and server were separated. <br> Please visit client at https://martcartdevrish.netlify.app/</h3>");
 });
