@@ -13,7 +13,7 @@ const eventSchema = new mongoose.Schema({
     colorLight: String,
     colorDark: String,
     colorCTA: String,
-});
+}, { versionKey: false });
 
 export interface IEvent {
     _id?: Types.ObjectId,

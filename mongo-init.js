@@ -16,8 +16,7 @@ db.users.insertMany([
     email: "johndoe@test.com",
     password: "7f6f467575be3c486742105261a957e8c3984f7cfe08d04d6c22ff5ca2499f807b25ca8d7423a4be26cca5d1a03261de0ae973ff736eaa687b150805b377f527", // "qwerty"
     cart: [],
-    joinDate: ISODate("2023-09-28T10:53:17.505+00:00"),
-    __v: 0
+    joinDate: ISODate("2023-09-28T10:53:17.505+00:00")
   }, 
   {
     _id: ObjectId(ObjectId("6582582b9345fd962ccb8bc2")),
@@ -29,8 +28,7 @@ db.users.insertMany([
     email: "jackdoe@test.com",
     password: "7f6f467575be3c486742105261a957e8c3984f7cfe08d04d6c22ff5ca2499f807b25ca8d7423a4be26cca5d1a03261de0ae973ff736eaa687b150805b377f527", // "qwerty"
     cart: [],
-    joinDate: ISODate("2023-09-28T10:53:17.505+00:00"),
-    __v: 0
+    joinDate: ISODate("2023-09-28T10:53:17.505+00:00")
   }
 ]);
 
@@ -136,8 +134,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric",
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa750fc"),
@@ -159,8 +156,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa750fb"),
@@ -182,8 +178,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa750ff"),
@@ -205,8 +200,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa750fd"),
@@ -228,8 +222,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa750fe"),
@@ -251,8 +244,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa75102"),
@@ -274,8 +266,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa75103"),
@@ -297,8 +288,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa75101"),
@@ -320,8 +310,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa75100"),
@@ -343,8 +332,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa75104"),
@@ -366,8 +354,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c440ebd094a352aa75105"),
@@ -389,8 +376,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcad7"),
@@ -412,8 +398,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcad6"),
@@ -435,8 +420,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcada"),
@@ -458,8 +442,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcad9"),
@@ -481,8 +464,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcad8"),
@@ -504,8 +486,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcadb"),
@@ -527,8 +508,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcade"),
@@ -550,8 +530,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcadc"),
@@ -573,8 +552,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcadd"),
@@ -596,8 +574,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcae1"),
@@ -619,8 +596,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcae0"),
@@ -642,8 +618,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c51f52ede39cbc92dcadf"),
@@ -665,8 +640,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b852b"),
@@ -688,8 +662,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b852a"),
@@ -711,8 +684,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b852e"),
@@ -734,8 +706,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b852c"),
@@ -757,8 +728,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b852d"),
@@ -780,8 +750,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b8532"),
@@ -803,8 +772,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b8531"),
@@ -826,8 +794,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b852f"),
@@ -849,8 +816,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b8530"),
@@ -872,8 +838,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b8535"),
@@ -895,8 +860,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b8533"),
@@ -918,8 +882,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c654e700e7826693b8534"),
@@ -941,8 +904,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8b9"),
@@ -964,8 +926,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8ba"),
@@ -987,8 +948,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8bd"),
@@ -1010,8 +970,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8bc"),
@@ -1033,8 +992,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8bb"),
@@ -1056,8 +1014,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8c1"),
@@ -1079,8 +1036,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8bf"),
@@ -1102,8 +1058,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8c0"),
@@ -1125,8 +1080,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8be"),
@@ -1148,8 +1102,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8c3"),
@@ -1171,8 +1124,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8c4"),
@@ -1194,8 +1146,7 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   },
   {
     _id: ObjectId("623c6babede04db50878e8c2"),
@@ -1217,7 +1168,6 @@ db.products.insertMany([
         name: "material",
         value: "fabric"
       }
-    ],
-    __v: 0
+    ]
   }
 ]);

@@ -6,7 +6,7 @@ const categorySchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-});
+}, { versionKey: false });
 
 export interface ICategory {
     _id?: Types.ObjectId,

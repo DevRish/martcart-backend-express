@@ -13,7 +13,7 @@ const orderSchema = new mongoose.Schema({
     address: String,
     totalPrice: Number,
     orderedAt: Date,
-});
+}, { versionKey: false });
 
 export interface IOrder {
     _id?: Types.ObjectId,

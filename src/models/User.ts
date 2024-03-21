@@ -6,6 +6,14 @@ export enum UserTypes {
     ADMIN="ADMIN"
 }
 
+const cartItemSchema = new mongoose.Schema({
+    productId: {
+        type: Types.ObjectId,
+        ref: "Product",
+    },
+    quantity: Number
+}, { _id: false });
+
 const userSchema = new mongoose.Schema({
     firstname: String,
     lastname: String,
@@ -14,15 +22,9 @@ const userSchema = new mongoose.Schema({
     phone: String,
     email: String,
     password: String,
-    cart: [{
-        productId: {
-            type: Types.ObjectId,
-            ref: "Product",
-        },
-        quantity: Number
-    }],
+    cart: [cartItemSchema],
     joinDate: { type: Date, default: (new Date()).toISOString() }
-});
+}, { versionKey: false });
 
 export interface ICartItem {
     productId: Types.ObjectId,

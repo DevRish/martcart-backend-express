@@ -28,7 +28,7 @@ const productSchema = new mongoose.Schema({
         name: String,
         value: String
     }],
-});
+}, { versionKey: false });
 
 export interface IProduct {
     _id?: Types.ObjectId,
