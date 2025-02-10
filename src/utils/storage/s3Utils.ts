@@ -1,16 +1,15 @@
 import AWS from "aws-sdk";
 import fs from "fs";
-import { AWS_ACCESS_KEY_ID, AWS_S3_BUCKET_NAME, AWS_S3_BUCKET_REGION, AWS_SECRET_ACCESS_KEY } from "../../config/keys";
+import { AWS_ACCESS_KEY_ID, AWS_S3_BUCKET_NAME, AWS_S3_BUCKET_URL, AWS_SECRET_ACCESS_KEY } from "../../config/keys";
 
-AWS.config.update({ 
-    region: AWS_S3_BUCKET_REGION,
-    credentials: {
-        accessKeyId: AWS_ACCESS_KEY_ID,
-        secretAccessKey: AWS_SECRET_ACCESS_KEY
-    }
+// Configure MinIO Client
+const s3 = new AWS.S3({
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY,
+    endpoint: AWS_S3_BUCKET_URL,  // MinIO URL
+    s3ForcePathStyle: true, // Required for MinIO
+    signatureVersion: "v4", // MinIO uses AWS v4 signing
 });
-
-const s3 = new AWS.S3();
 
 export async function storeFileS3(key: string, tempPath: string, mimeType: string) {
     const readStream = fs.createReadStream(tempPath);
