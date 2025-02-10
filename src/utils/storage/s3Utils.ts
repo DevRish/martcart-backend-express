@@ -6,7 +6,7 @@ import { AWS_ACCESS_KEY_ID, AWS_S3_BUCKET_NAME, AWS_S3_BUCKET_URL, AWS_SECRET_AC
 const s3 = new AWS.S3({
     accessKeyId: AWS_ACCESS_KEY_ID,
     secretAccessKey: AWS_SECRET_ACCESS_KEY,
-    endpoint: AWS_S3_BUCKET_URL,  // MinIO URL
+    endpoint: AWS_S3_BUCKET_URL, // MinIO URL
     s3ForcePathStyle: true, // Required for MinIO
     signatureVersion: "v4", // MinIO uses AWS v4 signing
 });
